@@ -150,3 +150,5 @@ BEGIN
     INSERT INTO jornada (descripcion, fecha) VALUES (descripcion, nueva_fecha);
 END $$
 DELIMITER ;
+
+-- CALL insertar_jornada ('Jornada de prueba'); *Sentencia para insertar jornadas que se vaya auto incrementando con el calendario*
