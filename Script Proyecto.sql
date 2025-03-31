@@ -62,7 +62,9 @@ create table persona(
 
 create table alumno(
 	id_persona int,
-    constraint fk_alumno_persona foreign key (id_persona) references persona(id)
+    id_curso int,
+    constraint fk_alumno_persona foreign key (id_persona) references persona(id),
+    constraint fk_alumno_curso foreign key (id_curso) references curso(id)
 );
 
 create table tutor_docente(
@@ -72,7 +74,9 @@ create table tutor_docente(
 
 create table tutor_laboral(
 	id_persona int,
-    constraint fk_tutorL_persona foreign key (id_persona) references persona(id)
+    id_empresa int,
+    constraint fk_tutorL_persona foreign key (id_persona) references persona(id),
+    constraint fk_tutorL_empresa foreign key (id_empresa) references empresa(id)
 );
 
 create table convenio(
@@ -85,3 +89,64 @@ create table convenio(
     constraint fk_convenio_tutorD foreign key (id_tutorD) references tutor_docente(id_persona),
     constraint fk_convenio_tutorL foreign key (id_tutorL) references tutor_laboral(id_persona)
 );
+
+create table competencia(
+	id int primary key auto_increment,
+    descripcion varchar(250)
+);
+
+create table actividad_formativa(
+	id int primary key auto_increment,
+    nombre varchar(100),
+    id_competencia int,
+    constraint fk_actividad_competencia foreign key (id_competencia) references competencia(id)
+);
+
+create table evaluacion(
+	id int primary key auto_increment,
+    id_alumno int,
+    id_actividad int,
+    comentario text,
+    nota double(4,2),
+    id_tutorL int,
+    constraint fk_evaluacion_alumno foreign key (id_alumno) references alumno (id_persona),
+    constraint fk_evaluacion_actividad foreign key (id_actividad) references actividad_formativa (id),
+    constraint fk_evaluacion_tutorL foreign key (id_tutorL) references tutor_laboral(id_persona)
+);
+
+create table calendario(
+	id_sede int,
+	fecha date primary key,
+    constraint fk_calendario_sede foreign key (id_sede) references sede(id)
+);
+
+create table jornada(
+	id int primary key auto_increment,
+    id_alumno int,
+    hora_inicio int,
+    hora_fin int,
+	descripcion varchar(255),
+    fecha date,
+    constraint fk_jornada_calendario foreign key (fecha) references calendario(fecha),
+    constraint fk_jornada_alumno foreign key (id_alumno) references alumno (id_persona)
+);
+
+DELIMITER $$
+CREATE PROCEDURE insertar_jornada (IN descripcion VARCHAR(255))
+BEGIN
+    DECLARE nueva_fecha DATE;
+    -- Obtener la última fecha insertada en la tabla eventos
+    SELECT MAX(fecha) INTO nueva_fecha FROM jornada;
+    -- Si no hay fechas previas, empezar con una fecha de inicio, por ejemplo, '2025-01-01'
+    IF nueva_fecha IS NULL THEN
+        SET nueva_fecha = '2025-01-01';
+    ELSE
+        -- Sumar un día a la última fecha
+        SET nueva_fecha = DATE_ADD(nueva_fecha, INTERVAL 1 DAY);
+    END IF;
+    -- Insertar la nueva fecha en la tabla calendario (si no existe)
+    INSERT IGNORE INTO calendario (fecha) VALUES (nueva_fecha);
+    -- Insertar el evento con la nueva fecha
+    INSERT INTO jornada (descripcion, fecha) VALUES (descripcion, nueva_fecha);
+END $$
+DELIMITER ;

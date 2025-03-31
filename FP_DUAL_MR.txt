@@ -1,0 +1,66 @@
+EMPRESA(ID, nombre, cif, email, telefono, direccion)
+    PK(ID)
+
+SEDE(ID, id_empresa, localidad, direccion)
+    PK(ID)
+    FK1(id_empresa --> EMPRESA(ID))
+
+INSTITUTO(ID, nombre, email, localidad, direccion)
+    PK(ID)
+
+CICLO_FORMATIVO(ID, nombre, nivel)
+    PK(ID)
+
+OFERTA_FORMATIVA(ID, annio_implantacion, id_instituto, id_ciclo)
+    PK(ID)
+    FK1(id_instituto --> INSTITUTO(ID))
+    FK2(id_ciclo --> CICLO_FORMATIVO(ID))
+
+CURSO(ID, nombre, annio_academico, id_oferta)
+    PK(ID)
+    FK1(id_oferta --> OFERTA_FORMATIVA(ID))
+
+PERSONA(ID, nombre, apellidos, dni, telefono, fecha_nacimiento, direccion)
+    PK(ID)
+
+ALUMNO(ID_persona, id_curso)
+    PK(ID_persona)
+    FK1(ID_persona --> PERSONA(ID))
+    FK2(id_curso --> CURSO(ID))
+
+TUTOR_DOCENTE(ID_persona)
+    PK(ID_persona)
+    FK1(ID_persona --> PERSONA(ID))
+
+TUTOR_LABORAL(ID_persona, id_empresa)
+    PK(ID_persona)
+    FK1(ID_persona --> PERSONA(ID))
+    FK2(id_empresa --> EMPRESA(ID))
+
+CONVENIO(ID, id_alumno, id_tutorD, id_tutorL, fecha_firma)
+    PK(ID)
+    FK1(id_alumno --> ALUMNO(ID_persona))
+    FK2(id_tutorD --> TUTOR_DOCENTE(ID_persona))
+    FK3(id_tutorL --> TUTOR_LABORAL(ID_persona))
+
+COMPETENCIA(ID, descripcion)
+    PK(ID)
+
+ACTIVIDAD_FORMATIVA(ID, nombre, id_competencia)
+    PK(ID)
+    FK1(id_competencia --> COMPETENCIA(ID))
+
+EVALUACION(ID, id_alumno, id_actividad, comentario, nota, id_tutorL)
+    PK(ID)
+    FK1(id_alumno --> ALUMNO(ID_persona))
+    FK2(id_actividad --> ACTIVIDAD_FORMATIVA(ID))
+    FK3(id_tutorL --> TUTOR_LABORAL(ID_persona))
+
+CALENDARIO(id_sede, FECHA)
+    PK(FECHA)
+    FK1(id_sede --> SEDE(ID))
+
+JORNADA(ID, id_alumno, hora_inicio, hora_fin, descripcion, fecha)
+    PK(ID)
+    FK1(fecha --> CALENDARIO(FECHA))
+    FK2(id_alumno --> ALUMNO(ID_persona))
