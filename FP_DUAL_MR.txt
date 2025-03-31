@@ -1,4 +1,4 @@
-EMPRESA(ID, NU-nombre, NU-cif, U-email, telefono, direccion)
+EMPRESA(ID, NU-nombre, NU-cif, U-email, U-telefono, direccion)
     PK(ID)
 
 SEDE(ID, id_empresa, N-localidad, N-direccion)
@@ -80,4 +80,4 @@ JORNADA(ID, id_alumno, N-hora_inicio, N-hora_fin, descripcion, fecha)
     FK1(fecha --> CALENDARIO(FECHA))
     FK2(id_alumno --> ALUMNO(ID_persona))
     CONS1(id_alumno on delete cascade)
-    CHK1(hora_fin > hora_fin)
+    CHK1(hora_fin > hora_inicio)
