@@ -126,8 +126,8 @@ create table calendario(
 create table jornada(
 	id int primary key auto_increment,
     id_alumno int,
-    hora_inicio int not null,
-    hora_fin int not null,
+    hora_inicio int not null default 0,
+    hora_fin int not null default 1,
 	descripcion varchar(255),
     fecha date,
     constraint fk_jornada_calendario foreign key (fecha) references calendario(fecha),
@@ -136,12 +136,17 @@ create table jornada(
 );
 
 DELIMITER $$
-CREATE PROCEDURE insertar_jornada (IN descripcion VARCHAR(255))
+CREATE PROCEDURE insertar_jornada (
+    IN p_id_alumno INT,
+    IN p_hora_inicio TIME,
+    IN p_hora_fin TIME,
+    IN p_descripcion VARCHAR(255)
+)
 BEGIN
     DECLARE nueva_fecha DATE;
-    -- Obtener la última fecha insertada en la tabla eventos
+    -- Obtener la última fecha insertada en la tabla jornada
     SELECT MAX(fecha) INTO nueva_fecha FROM jornada;
-    -- Si no hay fechas previas, empezar con una fecha de inicio, por ejemplo, '2025-01-01'
+    -- Si no hay fechas previas, empezar con una fecha inicial, por ejemplo, '2025-01-01'
     IF nueva_fecha IS NULL THEN
         SET nueva_fecha = '2025-01-01';
     ELSE
@@ -150,9 +155,8 @@ BEGIN
     END IF;
     -- Insertar la nueva fecha en la tabla calendario (si no existe)
     INSERT IGNORE INTO calendario (fecha) VALUES (nueva_fecha);
-    -- Insertar el evento con la nueva fecha
-    INSERT INTO jornada (descripcion, fecha) VALUES (descripcion, nueva_fecha);
+    -- Insertar la nueva jornada con todos los campos
+    INSERT INTO jornada (id_alumno, hora_inicio, hora_fin, descripcion, fecha) 
+    VALUES (p_id_alumno, p_hora_inicio, p_hora_fin, p_descripcion, nueva_fecha);
 END $$
 DELIMITER ;
-
--- CALL insertar_jornada ('Jornada de prueba'); *Sentencia para insertar jornadas que se vaya auto incrementando con el calendario*
