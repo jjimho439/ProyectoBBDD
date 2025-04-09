@@ -15,10 +15,10 @@ INSERT INTO sede (id_empresa, localidad, direccion) VALUES
 (6, 'Granada', 'Camino de Relleno 25');
 
 INSERT INTO calendario (nombre, fecha_inicio, fecha_fin) VALUES
-('Calendario 2025 A', '2025-01-10', '2025-12-15'),
-('Calendario 2025 B', '2025-02-01', '2025-11-30'),
-('Calendario 2025 C', '2025-03-05', '2025-12-10'),
-('Calendario Extra', '2025-01-01', '2025-12-31');
+('Calendario Alpha', '2025-01-10', '2025-12-15'),
+('Calendario Beta', '2025-02-01', '2025-11-30'),
+('Calendario Gamma', '2025-03-05', '2025-12-10'),
+('Calendario Delta', '2025-01-01', '2025-12-31');
 
 INSERT INTO jornada (dia_semana, fecha, hora_inicio, hora_fin, id_calendario) VALUES
 ('Lunes', '2025-01-13', '08:00:00', '16:00:00', 1),
@@ -48,11 +48,11 @@ INSERT INTO oferta_formativa (id_instituto, id_ciclo, annio_implantacion) VALUES
 (5, 1, 2022);
 
 INSERT INTO curso (nombre, annio_academico, id_instituto, id_ciclo) VALUES
-('DAW 1º', 2023, 1, 1),
-('ASIR 2º', 2024, 2, 2),
-('GA 1º', 2022, 3, 3),
-('MARK 2º', 2025, 4, 4),
-('DAW 2º', 2024, 5, 1);
+('DAW 1º', '2023/2024', 1, 1),
+('ASIR 2º', '20223/2024', 2, 2),
+('GA 1º', '2022/2023', 3, 3),
+('MARK 2º', '2025/2026', 4, 4),
+('DAW 2º', '2024/2025', 5, 1);
 
 INSERT INTO persona (nombre, apellidos, telefono, fecha_nacimiento, dni, direccion) VALUES
 ('Laura', 'Morales Díaz', '600100100', '2004-04-10', '10000001A', 'Calle Luna 10'),
@@ -173,16 +173,16 @@ INSERT INTO competencia (nota, descripcion, id_actividad) VALUES
 (10, 'Desempeño sobresaliente y enfoque integral en la mejora continua de procesos.', 20);
 
 INSERT INTO convenio (id_tutor_docente, id_tutor_laboral, fecha_firma) VALUES
-(1, 1, '2024-11-10'),
-(2, 2, '2024-11-11'),
-(3, 3, '2024-11-12'),
-(4, 4, '2024-11-13'),
-(5, 5, '2024-11-14'),
-(1, 2, '2024-11-15'),
-(2, 3, '2024-11-16'),
-(3, 4, '2024-11-17'),
-(4, 5, '2024-11-18'),
-(5, 1, '2024-11-19');
+(11, 16, '2024-11-10'),
+(12, 17, '2024-11-11'),
+(13, 16, '2024-11-12'),
+(14, 16, '2024-11-13'),
+(15, 18, '2024-11-14'),
+(11, 20, '2024-11-15'),
+(12, 19, '2024-11-16'),
+(13, 18, '2024-11-17'),
+(14, 17, '2024-11-18'),
+(15, 20, '2024-11-19');
 
 INSERT INTO practica (id_alumno, id_evaluacion, id_calendario, id_convenio) VALUES
 (1, 1, 1, 1),
@@ -196,3 +196,4 @@ INSERT INTO practica (id_alumno, id_evaluacion, id_calendario, id_convenio) VALU
 (9, 9, 3, 9),
 (10, 10, 1, 10);
 
+select * from calendario;

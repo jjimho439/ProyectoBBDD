@@ -62,7 +62,7 @@ create table oferta_formativa(
 create table curso(
     id int primary key auto_increment,
     nombre varchar(100) not null,
-    annio_academico year not null,
+    annio_academico varchar(15) not null,
     id_instituto int not null,
     id_ciclo int not null,
     constraint fk_oferta_curso foreign key (id_instituto, id_ciclo) references oferta_formativa(id_instituto, id_ciclo)
