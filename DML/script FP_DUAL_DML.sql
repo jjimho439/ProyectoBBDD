@@ -187,7 +187,7 @@ INSERT INTO convenio (id_tutor_docente, id_tutor_laboral, fecha_firma) VALUES
 INSERT INTO practica (id_alumno, id_evaluacion, id_calendario, id_convenio) VALUES
 (1, 1, 1, 1),
 (2, 2, 2, 2),
-(3, 3, 3, 3),
+(3, 3, 3, 2),
 (4, 4, 1, 4),
 (5, 5, 2, 5),
 (6, 6, 3, 6),
