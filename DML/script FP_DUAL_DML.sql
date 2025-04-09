@@ -20,13 +20,6 @@ INSERT INTO calendario (nombre, fecha_inicio, fecha_fin) VALUES
 ('Calendario Gamma', '2025-03-05', '2025-12-10'),
 ('Calendario Delta', '2025-01-01', '2025-12-31');
 
-INSERT INTO jornada (dia_semana, fecha, hora_inicio, hora_fin, id_calendario) VALUES
-('Lunes', '2025-01-13', '08:00:00', '16:00:00', 1),
-('Martes', '2025-01-20', '09:00:00', '15:00:00', 1),
-('Miércoles', '2025-02-05', '10:00:00', '18:00:00', 2),
-('Jueves', '2025-03-10', '08:30:00', '14:30:00', 3),
-('Viernes', '2025-04-25', '09:00:00', '17:00:00', 4);
-
 INSERT INTO instituto (nombre, email, localidad, direccion) VALUES
 ('IES Newton', 'newton@ies.com', 'Madrid', 'Calle Ciencia 1'),
 ('IES Curie', 'curie@ies.com', 'Barcelona', 'Av. Física 2'),
@@ -196,4 +189,56 @@ INSERT INTO practica (id_alumno, id_evaluacion, id_calendario, id_convenio) VALU
 (9, 9, 3, 9),
 (10, 10, 1, 10);
 
-select * from calendario;
+DELIMITER $$
+DROP PROCEDURE IF EXISTS rellenar_calendario$$
+CREATE PROCEDURE rellenar_calendario()
+BEGIN 
+
+	declare cal_fecha_inicio date;
+    declare cal_fecha_fin date;
+    declare cal_id int;
+    declare fin int default 0;
+    declare calendario cursor for select fecha_inicio, fecha_fin, id from calendario;
+    declare continue handler for not found set fin = 1;
+    
+    open calendario;
+    
+    bucle_cal: LOOP
+    
+		fetch calendario into cal_fecha_inicio, cal_fecha_fin, cal_id;
+        while cal_fecha_inicio <= cal_fecha_fin DO
+			if dayofweek(cal_fecha_inicio) IN (2,3,4,5,6) then
+				insert into jornada 
+					(dia_semana, fecha, hora_inicio, hora_fin, id_calendario)
+				values (dia_semana(dayofweek(cal_fecha_inicio)), cal_fecha_inicio, '08:00', '14:00', cal_id);
+			end if;
+            SET cal_fecha_inicio = DATE_ADD(cal_fecha_inicio, INTERVAL 1 DAY);
+		end while;
+    
+		if fin = 1 then
+			leave bucle_cal;
+		end if;
+    END LOOP;
+	
+    close calendario;
+    
+END$$
+
+drop function if exists dia_semana$$
+create function dia_semana(num_dia int) returns varchar(25) deterministic
+begin
+	
+    declare result varchar(25);
+	set result = case(num_dia)
+        when 2 then 'Lunes'
+        when 3 then 'Martes'
+        when 4 then 'Miercoles'
+        when 5 then 'Jueves'
+        when 6 then 'Viernes'
+	end;
+    
+    return result;
+end$$
+DELIMITER ;
+
+call rellenar_calendario;
