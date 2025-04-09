@@ -29,6 +29,7 @@ create table calendario(
 create table jornada(
 	id int primary key auto_increment,
     dia_semana varchar(50),
+    fecha date,
     hora_inicio time,
     hora_fin time,
     id_calendario int,
