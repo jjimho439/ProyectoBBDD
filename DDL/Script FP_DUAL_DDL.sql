@@ -108,8 +108,8 @@ create table evaluacion(
 
 create table actividad_formativa(
     id int primary key auto_increment,
-    descripcion varchar(200),
     nota int not null,
+    descripcion varchar(200),
     id_evaluacion int not null,
     constraint fk_evaluacion_actividad foreign key (id_evaluacion) references evaluacion(id),
     constraint chk_nota_act check (nota between 0 and 10)
@@ -117,8 +117,8 @@ create table actividad_formativa(
 
 create table competencia(
     id int primary key auto_increment,
-    descripcion varchar(200),
     nota int not null,
+    descripcion varchar(200),
     id_actividad int not null,
     constraint fk_actividad_competencia foreign key (id_actividad) references actividad_formativa(id),
     constraint chk_nota_comp check (nota between 0 and 10)
