@@ -4,7 +4,6 @@ insert into calendario (nombre, fecha_inicio, fecha_fin) values
     ('CRUZ_MAYO_VISO', '2025-05-07', '2025-05-11'),
     ('FERIA_SEVILLA', '2025-04-28', '2025-05-04');
     
-    select id, fecha_inicio, fecha_fin from calendario;
     
 -- Procedimiento para cargar X, J, V al calendario anterior
 -- de forma automática en el rango de fechas establecidos y con X horas al día
@@ -27,7 +26,6 @@ BEGIN
     bucle_cal: LOOP
     
 		fetch calendario into cal_fecha_inicio, cal_fecha_fin, cal_id;
-		select cal_fecha_inicio, cal_fecha_fin, cal_id;
         while cal_fecha_inicio <= cal_fecha_fin DO
 			if dayofweek(cal_fecha_inicio) IN (2,3,4,5,6) then
 				insert into jornada 
