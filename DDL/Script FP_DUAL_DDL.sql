@@ -79,19 +79,19 @@ create table persona(
 );
 
 create table alumno(
-	id_persona int,
+	id_persona int primary key,
     id_curso int,
     constraint fk_persona_alumno foreign key(id_persona) references persona(id),
     constraint fk_curso_alumno foreign key (id_curso) references curso(id)
 );
 
 create table tutor_docente(
-	id_persona int,
+	id_persona int primary key,
     constraint fk_persona_tutord foreign key (id_persona) references persona(id)
 );
 
 create table tutor_laboral(
-	id_persona int,
+	id_persona int primary key,
     id_empresa int,
     constraint fk_persona_tutorl foreign key (id_persona) references persona(id),
     constraint fk_empresa_tutorl foreign key (id_empresa) references empresa(id)
@@ -102,21 +102,24 @@ create table evaluacion(
     comentario text,
     nota int,
     id_tutor_laboral int,
-    constraint fk_tutorl_evaluacion foreign key (id_tutor_laboral) references tutor_laboral(id_persona) 
+    constraint fk_tutorl_evaluacion foreign key (id_tutor_laboral) references tutor_laboral(id_persona),
+    constraint chk_nota_eva check (nota between 0 and 10)
 );
 
 create table actividad_formativa(
 	id int primary key auto_increment,
     nota int,
     id_evaluacion int,
-    constraint fk_evaluacion_actividad foreign key (id_evaluacion) references evaluacion(id)
+    constraint fk_evaluacion_actividad foreign key (id_evaluacion) references evaluacion(id),
+    constraint chk_nota_act check (nota between 0 and 10)
 );
 
 create table competencia(
 	id int primary key auto_increment,
     nota int,
     id_actividad int,
-    constraint fk_actividad_competencia foreign key (id_actividad) references actividad_formativa(id)
+    constraint fk_actividad_competencia foreign key (id_actividad) references actividad_formativa(id),
+    constraint chk_nota_comp check (nota between 0 and 10)
 );
 
 create table convenio(
