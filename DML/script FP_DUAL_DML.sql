@@ -14,11 +14,11 @@ INSERT INTO sede (id_empresa, localidad, direccion) VALUES
 (5, 'Sevilla', 'Av. Sur 77'),
 (6, 'Granada', 'Camino de Relleno 25');
 
-INSERT INTO calendario (nombre, fecha_inicio, fecha_fin) VALUES
-('Calendario Alpha', '2025-01-10', '2025-12-15'),
-('Calendario Beta', '2025-02-01', '2025-11-30'),
-('Calendario Gamma', '2025-03-05', '2025-12-10'),
-('Calendario Delta', '2025-01-01', '2025-12-31');
+INSERT INTO calendario (nombre, fecha_inicio, fecha_fin, id_sede) VALUES
+('Calendario Alpha', '2025-01-10', '2025-12-15', 1),
+('Calendario Beta', '2025-02-01', '2025-11-30', 5),
+('Calendario Gamma', '2025-03-05', '2025-12-10', 3),
+('Calendario Delta', '2025-01-01', '2025-12-31', 4);
 
 INSERT INTO instituto (nombre, email, localidad, direccion) VALUES
 ('IES Newton', 'newton@ies.com', 'Madrid', 'Calle Ciencia 1'),
@@ -69,7 +69,6 @@ INSERT INTO persona (nombre, apellidos, telefono, fecha_nacimiento, dni, direcci
 ('Sandra', 'Vega Romero', '600100118', '1993-06-11', '10000019S', 'Calle Vieja 21'),
 ('Manuel', 'Suárez Domínguez', '600100119', '1989-08-27', '10000020T', 'Camino Nuevo 6');
 
-
 INSERT INTO alumno (id_persona, id_curso) VALUES
 (1, 1),
 (2, 2),
@@ -109,7 +108,6 @@ INSERT INTO evaluacion (comentario, nota, id_tutor_laboral) VALUES
 ('Buen nivel técnico', 7, 17),
 ('Compromiso ejemplar', 9, 17);
 
--- Insert actividad_formativa con descripción
 INSERT INTO actividad_formativa (nota, descripcion, id_evaluacion) VALUES
 (7, 'Evaluación de la capacidad de organización y planificación de tareas.', 1),
 (8, 'Desempeño en la elaboración de proyectos grupales.', 1),
@@ -132,7 +130,6 @@ INSERT INTO actividad_formativa (nota, descripcion, id_evaluacion) VALUES
 (9, 'Trabajo en equipo sobresaliente con un enfoque profesional y responsable.', 10),
 (10, 'Habilidad para aprender rápidamente en entornos dinámicos y cambiantes.', 10);
 
--- Insert competencia con descripción
 INSERT INTO competencia (nota, descripcion, id_actividad) VALUES
 (8, 'Evaluación de la capacidad de aplicar conocimientos prácticos en situaciones reales.', 1),
 (9, 'Desarrollo de habilidades de comunicación efectiva en grupos de trabajo.', 1),
@@ -169,7 +166,7 @@ INSERT INTO convenio (id_tutor_docente, id_tutor_laboral, fecha_firma) VALUES
 (11, 16, '2024-11-10'),
 (12, 17, '2024-11-11'),
 (13, 16, '2024-11-12'),
-(14, 16, '2024-11-13'),
+(14, 16, null),
 (15, 18, '2024-11-14'),
 (11, 20, '2024-11-15'),
 (12, 19, '2024-11-16'),
@@ -181,13 +178,13 @@ INSERT INTO practica (id_alumno, id_evaluacion, id_calendario, id_convenio) VALU
 (1, 1, 1, 1),
 (2, 2, 2, 2),
 (3, 3, 3, 2),
-(4, 4, 1, 4),
+(4, 4, 1, 1),
 (5, 5, 2, 5),
-(6, 6, 3, 6),
-(7, 7, 1, 7),
+(null, 6, 3, 6),
+(7, 7, 1, 1),
 (8, 8, 2, 8),
-(9, 9, 3, 9),
-(10, 10, 1, 10);
+(9, 9, 3, 1),
+(null, 10, 1, 3);
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS rellenar_calendario$$
