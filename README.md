@@ -85,12 +85,6 @@ Basado en un modelo E/R relacional que cuenta con las siguientes entidades princ
 
 ---
 
-## 📸 Captura del modelo E/R
-
-![Modelo E/R del proyecto](FP_DUAL_E-R.png)
-
----
-
 ## 📃 Licencia
 
 Este proyecto ha sido desarrollado como parte de una práctica académica. Puedes usarlo como base para tus propios desarrollos con fines educativos o personales.
