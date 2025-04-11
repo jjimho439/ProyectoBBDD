@@ -8,6 +8,7 @@ Este proyecto representa un sistema de gestión completo para las **prácticas d
 - Francisco José Vergara Rodríguez  
 
 🏫 **Centro académico**: IES Los Alcores - Mairena del Alcor
+
 📅 **Curso académico**: 2024-2025
 
 ---
