@@ -7,6 +7,7 @@ Este proyecto representa un sistema de gestión completo para las **prácticas d
 - Juan Antonio Jiménez Hornillo  
 - Francisco José Vergara Rodríguez  
 
+🏫 **Centro académico**: IES Los Alcores - Mairena del Alcor
 📅 **Curso académico**: 2024-2025
 
 ---
@@ -47,14 +48,16 @@ Basado en un modelo E/R relacional que cuenta con las siguientes entidades princ
 
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tuusuario/FP_Dual.git
-   cd FP_Dual
+   git clone https://github.com/jjimho439/ProyectoBBDD.git
+   cd ProyectoBBDD
    ```
 
-2. Abre el archivo `.sql` en MySQL Workbench u otro cliente compatible.
+2. Abre los archivos `.sql` en MySQL Workbench u otro cliente compatible.
 
-3. Ejecuta el script de creación para generar la base de datos y poblarla con datos de prueba:
-   - `FP_Dual.sql` contiene la estructura + datos
+3. Ejecuta los script proporcionados para generar la base de datos, insertarle datos y poblarla con consultas de pruebas:
+   - `/DDL/Script FP_DUAL_DDL.sql` contiene la estructura
+   - `/DML/script FP_DUAL_DML.sql` contiene los datos
+   - `Script Consultas FP_DUAL.sql` contiene unas posibles consultas para probar la integridad
 
 ---
 
@@ -87,7 +90,7 @@ Basado en un modelo E/R relacional que cuenta con las siguientes entidades princ
 
 ## 📃 Licencia
 
-Este proyecto ha sido desarrollado como parte de una práctica académica. Puedes usarlo como base para tus propios desarrollos con fines educativos o personales.
+Este proyecto ha sido desarrollado por **La Élite** como parte de una práctica académica. Puedes usarlo como base para tus propios desarrollos con fines educativos o personales.
 
 ---
 
